@@ -1,9 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
-response = requests.get('https://uk.wikipedia.org/')
-
+response = requests.get('https://www.example.com/')
 if response.status_code == 200:
-    soup = BeautifulSoup(response.content, 'html.parser')
-    img = soup.find_all('img')#Список
-    for i in img:
-        print('https://' + i['src'])
+    soup = BeautifulSoup(response.text, features='html.parser')
+    soup_list = soup.find_all('a')
+    for link in soup_list:
+        href = link.get('href')
+        print(href)
+        if href.startswith('https://'):
+            print(href)
